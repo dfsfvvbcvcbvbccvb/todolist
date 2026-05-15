@@ -1,15 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from 'axios';
 
 function TodoForm() {
-
+    const navigate = useNavigate()
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
 
-    function handleFormSubmit(e) {
+    async function handleFormSubmit(e) {
         e.preventDefault()
 
+        let formdata = {
+            name: name,
+            description: description,
+            status: true
+        }
 
+        const response = await axios.post('/api/todos', formdata);
+        navigate('/')
     }
 
     return (
